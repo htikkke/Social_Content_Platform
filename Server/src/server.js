@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const prisma = require("./lib/prisma");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const authentication = require("./middleware/authMiddleware");
 
 const app = express();
 app.use(express.json());
@@ -124,45 +125,39 @@ app.post("/auth/logout", async (req, res) => {
   }
 });
 // Restore_Login_State_API
-app.get("/auth/me", async (req, res) => {
+app.get("/auth/me", authentication, async (req, res) => {
   try {
-    const token = req.cookies.token;
-
-    if (!token) {
-      return res.status(401).json({
-        message: "Access denied. No token provided.",
-      });
-    }
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const userId = decoded.id;
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-    });
-
-    if (!user) {
-      res.clearCookie("token", {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "Lax",
-        path: "/",
-      });
-      return res.status(401).json({
-        message: "User not found.",
-      });
-    }
-    const { password: _, ...userWithoutPassword } = user;
-
     return res.status(200).json({
       success: true,
-      user: userWithoutPassword,
+      user: req.user,
     });
   } catch (e) {
-    if (e.name === "TokenExpiredError" || e.name === "JsonWebTokenError") {
-      return res.status(401).json({
-        error: "Invalid or expired token.",
-      });
-    }
+    return res.status(500).json({
+      error: e.message,
+    });
+  }
+});
+//get-all-the-posts
+app.get("/posts", authentication, async (req, res) => {
+  try {
+    const posts = await prisma.post.findMany({
+      include: {
+        user: {
+          select: {
+            id: true,
+            username: true,
+            photoUrl: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return res.status(200).json({
+      post: posts,
+    });
+  } catch (e) {
     return res.status(500).json({
       error: e.message,
     });
