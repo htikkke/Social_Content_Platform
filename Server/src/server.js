@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/users.routes");
 const postRoutes = require("./routes/posts.routes");
+const commentsRoutes = require("./routes/comments.routes");
 
 const app = express();
 app.use(express.json());
@@ -18,6 +19,8 @@ app.use(cookieParser());
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
+app.use("/posts", commentsRoutes);
+app.use("/comments", commentsRoutes);
 
 // Run the server
 app.listen(8000, () => {
