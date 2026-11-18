@@ -1,29 +1,85 @@
+import mainImage from "../assets/Connecting Around the World.png";
 export default function Register() {
   return (
     <div
       id="register-page"
-      className="min-h-screen bg-blue-200 flex flex-col justify-between"
+      className="min-h-screen bg-background flex flex-col"
     >
       {/* Top Header Navbar */}
-      <header className="bg-blue-600 px-8 py-6 flex items-center justify-between shadow-md">
+      <header className="bg-primary-blue px-6 py-6 flex items-center justify-between shadow-md">
         <h1 className="text-3xl font-bold text-white tracking-wide">
           SocialBook
         </h1>
-        <div>
+        {/* Top login form */}
+        <div className="flex items-center gap-3">
           <div>
-            <input type="text" placeholder="Email or Username"></input>
+            <input
+              type="text"
+              placeholder="Email or Username"
+              className="px-3 py-2 rounded bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-blue w-48 placeholder:text-muted-gray"
+            ></input>
           </div>
           <div>
-            <input type="password" placeholder="Password"></input>
+            <input
+              type="password"
+              placeholder="Password"
+              className="px-3 py-2 rounded bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-blue w-48 placeholder:text-muted-gray"
+            ></input>
           </div>
-          <button>Log In</button>
-          <div>Forgot password?</div>
+          <div className="relative">
+            <button className="bg-vibrant-blue text-white px-3 py-2 rounded font-semibold transition-colors cursor-pointer">
+              Log In
+            </button>
+            <a
+              href="#"
+              className="absolute top-full right-0 mt-1 text-white text-xs whitespace-nowrap hover:underline cursor-pointer"
+            >
+              Forgot password?
+            </a>
+          </div>
         </div>
       </header>
       {/* Main Content Section */}
-      <main></main>
+      <main className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center px-12 py-5">
+        {/* Left-side */}
+        <div className="col-span-1 w-full">
+          <img
+            src={mainImage}
+            alt="Connect with friends and the world around you"
+            className="w-full h-auto object-cover"
+          />
+        </div>
+        {/* Right-side */}
+        <div className="col-span-1 w-full px-8 lg-px-16 py-8">
+          <div>
+            <h1>Create an Account</h1>
+            <p>It's quick and easy.</p>
+            <div>
+              <span>👤</span>
+              <input type="text" placeholder="Username" />
+            </div>
+            <div>
+              <span>✉️</span>
+              <input type="email" placeholder="Email Address" />
+            </div>
+            <div>
+              <span>🔒</span>
+              <input type="password" placeholder="Password" />
+            </div>
+            <button>Create Account</button>
+            <div>
+              <div></div>
+              <span>or</span>
+              <div></div>
+            </div>
+            <div>
+              Already have an account? <a>Log in</a>
+            </div>
+          </div>
+        </div>
+      </main>
       {/* Simple footer */}
-      <footer></footer>
+      <footer>SocialBook © 2026. All rights reserved.</footer>
     </div>
   );
 }
