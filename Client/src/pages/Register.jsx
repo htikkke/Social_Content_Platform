@@ -40,9 +40,9 @@ export default function Register() {
         </div>
       </header>
       {/* Main Content Section */}
-      <main className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center px-12 py-5">
+      <main className="w-full grid grid-cols-1 lg:grid-cols-2 gap-2 items-center px-12 py-5">
         {/* Left-side */}
-        <div className="col-span-1 w-full">
+        <div className="col-span-1 w-full flex items-center justify-end">
           <img
             src={mainImage}
             alt="Connect with friends and the world around you"
@@ -50,36 +50,57 @@ export default function Register() {
           />
         </div>
         {/* Right-side */}
-        <div className="col-span-1 w-full px-8 lg-px-16 py-8">
-          <div>
-            <h1>Create an Account</h1>
-            <p>It's quick and easy.</p>
-            <div>
-              <span>👤</span>
-              <input type="text" placeholder="Username" />
+        <div className="col-span-1 w-full px-8 lg:px-16 py-8">
+          <div className="flex flex-col items-left gap-6 bg-white px-8 py-8 rounded-2xl shadow-2xl">
+            <div className="flex flex-col py-4 border-b border-muted-gray/50">
+              <h1 className="text-3xl font-bold text-dark-charcoal">
+                Create an Account
+              </h1>
+              <p className="text-muted-gray text-sm mt-1">
+                It's quick and easy.
+              </p>
             </div>
-            <div>
-              <span>✉️</span>
-              <input type="email" placeholder="Email Address" />
+            <div className="flex flex-col items-center gap-4">
+              <input
+                type="text"
+                placeholder="👤 Username"
+                className="w-full px-4 py-2 border border-muted-gray/50 rounded-lg placeholder:text-muted-gray"
+              />
+              <input
+                type="email"
+                placeholder="✉️ Email Address"
+                className="w-full px-4 py-2 border border-muted-gray/50 rounded-lg placeholder:text-muted-gray"
+              />
+              <input
+                type="password"
+                placeholder="🔒 Password"
+                className="w-full px-4 py-2 border border-muted-gray/50 rounded-lg placeholder:text-muted-gray"
+              />
             </div>
-            <div>
-              <span>🔒</span>
-              <input type="password" placeholder="Password" />
+            <button className="w-full font-bold text-white bg-vibrant-blue px-4 py-2 rounded-lg cursor-pointer">
+              Create Account
+            </button>
+            <div className="relative flex py-2 items-center">
+              <div className="grow border-t border-muted-gray/50"></div>
+              <span className="shrink mx-4 text-muted-gray text-sm">or</span>
+              <div className="grow border-t border-muted-gray/50"></div>
             </div>
-            <button>Create Account</button>
-            <div>
-              <div></div>
-              <span>or</span>
-              <div></div>
-            </div>
-            <div>
-              Already have an account? <a>Log in</a>
+            <div className="text-center text-sm text-muted-gray">
+              Already have an account?{" "}
+              <a
+                href="#"
+                className="text-primary-blue font-semibold hover:underline"
+              >
+                Log in
+              </a>
             </div>
           </div>
         </div>
       </main>
       {/* Simple footer */}
-      <footer>SocialBook © 2026. All rights reserved.</footer>
+      <footer className="text-center text-sm text-muted-gray">
+        SocialBook © 2026. All rights reserved.
+      </footer>
     </div>
   );
 }
