@@ -11,7 +11,7 @@ export default function Register() {
           SocialBook
         </h1>
         {/* Top login form */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 max-md:hidden">
           <div>
             <input
               type="text"
@@ -40,9 +40,9 @@ export default function Register() {
         </div>
       </header>
       {/* Main Content Section */}
-      <main className="w-full grid grid-cols-1 lg:grid-cols-2 gap-2 items-center px-12 py-5">
+      <main className="w-full grid grid-cols-1 lg:grid-cols-2 gap-2 items-center px-12 py-5 max-md:px-2 max-md:py-0">
         {/* Left-side */}
-        <div className="col-span-1 w-full flex items-center justify-end">
+        <div className="col-span-1 w-full flex items-center justify-center">
           <img
             src={mainImage}
             alt="Connect with friends and the world around you"
@@ -50,7 +50,7 @@ export default function Register() {
           />
         </div>
         {/* Right-side */}
-        <div className="col-span-1 w-full px-8 lg:px-16 py-8">
+        <div className="col-span-1 w-full px-8 lg:px-16 py-8 max-md:px-4">
           <div className="flex flex-col items-left gap-6 bg-white px-8 py-8 rounded-2xl shadow-2xl">
             <div className="flex flex-col py-4 border-b border-muted-gray/50">
               <h1 className="text-3xl font-bold text-dark-charcoal">
