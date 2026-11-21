@@ -1,17 +1,82 @@
-import { use, useState } from "react";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { ApiRequest } from "../services/api";
 import mainImage from "../assets/Connecting Around the World.png";
+
 export default function Register() {
+  const navigate = useNavigate();
+
   // Login States
   const [loginIdentifier, setLoginIdentifier] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+
   // Input States
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   // Loading,Error & Success States
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  // Basic Frontend validation
+  const validateForm = () => {
+    if (!username.trim()) {
+      return "Username cannot be empty.";
+    }
+    if (!email.trim()) {
+      return "Email address cannot be empty.";
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return "Please enter a valid email address.";
+    }
+    if (!password) {
+      return "Password cannot be empty.";
+    }
+    if (password.length < 8 || password.length < 0) {
+      return "Password must be at least 8 characters long.";
+    }
+    return null;
+  };
+
+  // Form Submission & API Integration
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+
+    //Run validation before calling Backend
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+    setIsLoading(true);
+    try {
+      await ApiRequest("http://localhost:8000/users", "POST", {
+        username: username.trim(),
+        email: email.trim(),
+        password,
+      });
+
+      setSuccess("Account created successfully! Redirecting to login...");
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
+    } catch (err) {
+      setError(
+        err.message ||
+          "Registration failed.Username or email may already exist.",
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div
       id="register-page"
