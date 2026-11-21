@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ApiRequest from "../services/api";
+import mainBg from "../assets/loginbg.png";
 import mainImage from "../assets/Connecting Around the World.png";
 
 export default function Register() {
@@ -80,8 +81,9 @@ export default function Register() {
   };
   return (
     <div
-      id="register-page"
-      className="min-h-screen bg-background flex flex-col"
+      id="Register-container"
+      style={{ backgroundImage: `url(${mainBg})` }}
+      className="min-h-screen w-full bg-center bg-cover flex flex-col"
     >
       {/* Top Header Navbar */}
       <header className="bg-primary-blue px-6 py-6 flex items-center justify-between shadow-md">
