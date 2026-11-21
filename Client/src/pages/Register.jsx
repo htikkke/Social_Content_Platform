@@ -5,11 +5,6 @@ import mainImage from "../assets/Connecting Around the World.png";
 
 export default function Register() {
   const navigate = useNavigate();
-
-  // Login States
-  const [loginIdentifier, setLoginIdentifier] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-
   // Input States
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -93,40 +88,6 @@ export default function Register() {
         <h1 className="text-3xl font-bold text-white tracking-wide">
           SocialBook
         </h1>
-        {/* Top login form */}
-        <form className="flex items-center gap-3 max-md:hidden">
-          <div>
-            <input
-              onChange={(e) => setLoginIdentifier(e.target.value)}
-              value={loginIdentifier}
-              type="text"
-              placeholder="Email or Username"
-              aria-label="Email or Username"
-              className="px-3 py-2 rounded bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-blue w-48 placeholder:text-muted-gray"
-            ></input>
-          </div>
-          <div>
-            <input
-              onChange={(e) => setLoginPassword(e.target.value)}
-              value={loginPassword}
-              type="password"
-              placeholder="Password"
-              aria-label="Password"
-              className="px-3 py-2 rounded bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-blue w-48 placeholder:text-muted-gray"
-            ></input>
-          </div>
-          <div className="relative">
-            <button className="bg-vibrant-blue text-white px-3 py-2 rounded font-semibold transition-colors cursor-pointer">
-              Log In
-            </button>
-            <a
-              href="#"
-              className="absolute top-full right-0 mt-1 text-white text-xs whitespace-nowrap hover:underline cursor-pointer"
-            >
-              Forgot password?
-            </a>
-          </div>
-        </form>
       </header>
       {/* Main Content Section */}
       <main className="w-full grid grid-cols-1 lg:grid-cols-2 gap-2 items-center px-12 py-5 max-md:px-2 max-md:py-0">
