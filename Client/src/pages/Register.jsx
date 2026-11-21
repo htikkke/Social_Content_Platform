@@ -1,5 +1,17 @@
+import { use, useState } from "react";
 import mainImage from "../assets/Connecting Around the World.png";
 export default function Register() {
+  // Login States
+  const [loginIdentifier, setLoginIdentifier] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  // Input States
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  // Loading,Error & Success States
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   return (
     <div
       id="register-page"
@@ -11,18 +23,24 @@ export default function Register() {
           SocialBook
         </h1>
         {/* Top login form */}
-        <div className="flex items-center gap-3 max-md:hidden">
+        <form className="flex items-center gap-3 max-md:hidden">
           <div>
             <input
+              onChange={(e) => setLoginIdentifier(e.target.value)}
+              value={loginIdentifier}
               type="text"
               placeholder="Email or Username"
+              aria-label="Email or Username"
               className="px-3 py-2 rounded bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-blue w-48 placeholder:text-muted-gray"
             ></input>
           </div>
           <div>
             <input
+              onChange={(e) => setLoginPassword(e.target.value)}
+              value={loginPassword}
               type="password"
               placeholder="Password"
+              aria-label="Password"
               className="px-3 py-2 rounded bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-blue w-48 placeholder:text-muted-gray"
             ></input>
           </div>
@@ -37,7 +55,7 @@ export default function Register() {
               Forgot password?
             </a>
           </div>
-        </div>
+        </form>
       </header>
       {/* Main Content Section */}
       <main className="w-full grid grid-cols-1 lg:grid-cols-2 gap-2 items-center px-12 py-5 max-md:px-2 max-md:py-0">
@@ -57,26 +75,35 @@ export default function Register() {
                 Create an Account
               </h1>
               <p className="text-muted-gray text-sm mt-1">
-                It's quick and easy.
+                It&apos;s quick and easy.
               </p>
             </div>
-            <div className="flex flex-col items-center gap-4">
+            <form className="flex flex-col items-center gap-4">
               <input
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 type="text"
                 placeholder="👤 Username"
+                aria-label="Username"
                 className="w-full px-4 py-2 border border-muted-gray/50 rounded-lg placeholder:text-muted-gray"
               />
               <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 placeholder="✉️ Email Address"
+                aria-label="Email Address"
                 className="w-full px-4 py-2 border border-muted-gray/50 rounded-lg placeholder:text-muted-gray"
               />
               <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 type="password"
-                placeholder="🔒 Password"
+                placeholder="🔒 Password (min. 8 characters)"
+                aria-label="Password"
                 className="w-full px-4 py-2 border border-muted-gray/50 rounded-lg placeholder:text-muted-gray"
               />
-            </div>
+            </form>
             <button className="w-full font-bold text-white bg-vibrant-blue px-4 py-2 rounded-lg cursor-pointer">
               Create Account
             </button>
