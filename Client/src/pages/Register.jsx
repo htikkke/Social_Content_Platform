@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { ApiRequest } from "../services/api";
+import { useNavigate } from "react-router-dom";
+import ApiRequest from "../services/api";
 import mainImage from "../assets/Connecting Around the World.png";
 
 export default function Register() {
@@ -35,7 +35,7 @@ export default function Register() {
     if (!password) {
       return "Password cannot be empty.";
     }
-    if (password.length < 8 || password.length < 0) {
+    if (password.length < 8) {
       return "Password must be at least 8 characters long.";
     }
     return null;
@@ -55,10 +55,16 @@ export default function Register() {
     }
     setIsLoading(true);
     try {
-      await ApiRequest("http://localhost:8000/users", "POST", {
-        username: username.trim(),
-        email: email.trim(),
-        password,
+      await ApiRequest("/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username.trim(),
+          email: email.trim(),
+          password,
+        }),
       });
 
       setSuccess("Account created successfully! Redirecting to login...");
@@ -143,13 +149,36 @@ export default function Register() {
                 It&apos;s quick and easy.
               </p>
             </div>
-            <form className="flex flex-col items-center gap-4">
+
+            {/* Error & Success Alert Banners */}
+            {error && (
+              <div
+                role="alert"
+                className="px-4 py-3 rounded-lg bg-red-50 border border-red-300 text-red-700 text-sm font-medium"
+              >
+                {error}
+              </div>
+            )}
+            {success && (
+              <div
+                role="status"
+                className="px-4 py-3 rounded-lg bg-green-50 border border-green-300 text-green-700 text-sm font-medium"
+              >
+                {success}
+              </div>
+            )}
+            <form
+              onSubmit={handleSubmit}
+              noValidate
+              className="flex flex-col items-center gap-4"
+            >
               <input
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 type="text"
                 placeholder="👤 Username"
                 aria-label="Username"
+                disabled={isLoading}
                 className="w-full px-4 py-2 border border-muted-gray/50 rounded-lg placeholder:text-muted-gray"
               />
               <input
@@ -158,6 +187,7 @@ export default function Register() {
                 type="email"
                 placeholder="✉️ Email Address"
                 aria-label="Email Address"
+                disabled={isLoading}
                 className="w-full px-4 py-2 border border-muted-gray/50 rounded-lg placeholder:text-muted-gray"
               />
               <input
@@ -166,12 +196,17 @@ export default function Register() {
                 type="password"
                 placeholder="🔒 Password (min. 8 characters)"
                 aria-label="Password"
+                disabled={isLoading}
                 className="w-full px-4 py-2 border border-muted-gray/50 rounded-lg placeholder:text-muted-gray"
               />
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full font-bold text-white bg-vibrant-blue px-4 py-2 rounded-lg cursor-pointer"
+              >
+                {isLoading ? "Creating Account..." : "Create Account"}
+              </button>
             </form>
-            <button className="w-full font-bold text-white bg-vibrant-blue px-4 py-2 rounded-lg cursor-pointer">
-              Create Account
-            </button>
             <div className="relative flex py-2 items-center">
               <div className="grow border-t border-muted-gray/50"></div>
               <span className="shrink mx-4 text-muted-gray text-sm">or</span>

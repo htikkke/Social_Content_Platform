@@ -7,7 +7,10 @@ export default async function ApiRequest(endpoint, options = {}) {
   });
   const data = await response.json();
   if (!response.ok) {
-    throw new Error(data.message || "Something went wrong!");
+    throw new Error(
+      data.message ||
+        "Registration failed.Username or email or password may already exist!",
+    );
   }
   return data;
 }
