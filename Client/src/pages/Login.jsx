@@ -1,10 +1,15 @@
-import loginBg from "../assets/loginbg.png";
+import { useState } from "react";
+import mainBg from "../assets/loginbg.png";
 import mainImage from "../assets/Connecting Around the World.png";
 
 export default function Login() {
+  // Login States
+  const [loginIdentifier, setLoginIndentifier] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
   return (
     <div
-      style={{ backgroundImage: `url(${loginBg})` }}
+      id="login-container"
+      style={{ backgroundImage: `url(${mainBg})` }}
       className="min-h-screen w-full bg-center bg-cover flex flex-col"
     >
       {/* Top Header Navbar */}
@@ -37,19 +42,17 @@ export default function Login() {
             <form className="flex flex-col items-center gap-4">
               <input
                 type="text"
-                placeholder="👤 Username"
+                value={loginIdentifier}
+                onChange={(e) => setLoginIndentifier(e.target.value)}
+                placeholder="👤 Username or ✉️ Email Address"
                 aria-label="Username"
                 className="w-full px-4 py-2 border border-muted-gray/50 rounded-lg placeholder:text-muted-gray"
               />
               <input
-                type="email"
-                placeholder="✉️ Email Address"
-                aria-label="Email Address"
-                className="w-full px-4 py-2 border border-muted-gray/50 rounded-lg placeholder:text-muted-gray"
-              />
-              <input
                 type="password"
-                placeholder="🔒 Password (min. 8 characters)"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                placeholder="🔒 Password"
                 aria-label="Password"
                 className="w-full px-4 py-2 border border-muted-gray/50 rounded-lg placeholder:text-muted-gray"
               />
