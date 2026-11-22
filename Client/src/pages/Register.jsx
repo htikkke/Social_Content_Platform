@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import ApiRequest from "../services/api";
 import mainBg from "../assets/loginbg.png";
 import mainImage from "../assets/Connecting Around the World.png";
@@ -177,12 +177,12 @@ export default function Register() {
             </div>
             <div className="text-center text-sm text-muted-gray">
               Already have an account?{" "}
-              <a
-                href="#"
+              <Link
+                to="/Login"
                 className="text-primary-blue font-semibold hover:underline"
               >
                 Log in
-              </a>
+              </Link>
             </div>
           </div>
         </div>
