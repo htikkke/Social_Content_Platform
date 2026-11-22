@@ -95,13 +95,36 @@ export default function Login() {
                 Let&apos;s get you back to your community
               </p>
             </div>
-            <form className="flex flex-col items-center gap-4">
+
+            {/* Error & Success Alert Banners */}
+            {loginError && (
+              <div
+                role="alert"
+                className="px-4 py-3 rounded-lg bg-red-50 border border-red-300 text-red-700 text-sm font-medium"
+              >
+                {loginError}
+              </div>
+            )}
+            {loginSuccess && (
+              <div
+                role="status"
+                className="px-4 py-3 rounded-lg bg-green-50 border border-green-300 text-green-700 text-sm font-medium"
+              >
+                {loginSuccess}
+              </div>
+            )}
+            <form
+              onSubmit={handleSubmit}
+              noValidate
+              className="flex flex-col items-center gap-4"
+            >
               <input
                 type="text"
                 value={loginIdentifier}
                 onChange={(e) => setLoginIndentifier(e.target.value)}
                 placeholder="👤 Username or ✉️ Email Address"
                 aria-label="Username"
+                disabled={loginLoading}
                 className="w-full px-4 py-2 border border-muted-gray/50 rounded-lg placeholder:text-muted-gray"
               />
               <input
@@ -110,13 +133,15 @@ export default function Login() {
                 onChange={(e) => setLoginPassword(e.target.value)}
                 placeholder="🔒 Password"
                 aria-label="Password"
+                disabled={loginLoading}
                 className="w-full px-4 py-2 border border-muted-gray/50 rounded-lg placeholder:text-muted-gray"
               />
               <button
                 type="submit"
+                disabled={loginLoading}
                 className="w-full font-bold text-white bg-vibrant-blue px-4 py-2 rounded-lg cursor-pointer"
               >
-                Log In
+                {loginLoading ? "Logging In..." : "Log In"}
               </button>
             </form>
             <div className="relative flex py-2 items-center">
