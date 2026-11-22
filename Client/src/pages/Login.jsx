@@ -1,11 +1,67 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ApiRequest from "../services/api";
 import mainBg from "../assets/loginbg.png";
 import mainImage from "../assets/Connecting Around the World.png";
 
 export default function Login() {
+  const navigate = useNavigate();
   // Login States
   const [loginIdentifier, setLoginIndentifier] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  // Success,Loading and Error States
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [loginSuccess, setLoginSuccess] = useState("");
+  const [loginError, setLoginError] = useState("");
+
+  // Basic Frontend validation
+  const validateForm = () => {
+    if (!loginIdentifier.trim()) {
+      return "Username or email cannot be empty.";
+    }
+    if (!loginPassword) {
+      return "Password cannot be empty.";
+    }
+    return null;
+  };
+  // Login Submittion
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoginError("");
+    setLoginSuccess("");
+    //Run validation before calling Backend
+    const validationError = validateForm();
+    if (validationError) {
+      setLoginError(validationError);
+      return;
+    }
+    setLoginLoading(true);
+    try {
+      await ApiRequest("/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          identifier: loginIdentifier.trim(),
+          password: loginPassword,
+        }),
+      });
+
+      setLoginSuccess("Logined successfully! Redirecting to Home-Page...");
+      setLoginIndentifier("");
+      setLoginPassword("");
+      setTimeout(() => {
+        navigate("/Home");
+      }, 1500);
+    } catch (err) {
+      setLoginError(
+        err.message || "Login failed.Please check username and password again!",
+      );
+    } finally {
+      setLoginLoading(false);
+    }
+  };
   return (
     <div
       id="login-container"
