@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { FormContext } from "../pages/Home";
 import homeIcon from "../assets/house-solid.svg";
 import profileIcon from "../assets/user-solid.svg";
-import leftsideImage from "../assets/Connecting Around the World.png";
+import leftsideImage from "../assets/leftsidebar.png";
 
 export default function LeftSidebar() {
   const { activeTab, setActiveTab } = useContext(FormContext);
@@ -17,7 +17,7 @@ export default function LeftSidebar() {
         onClick={() => setActiveTab("home")}
         className={`w-full flex items-center justify-start gap-3 px-4 py-3 rounded-xl font-semibold transition cursor-pointer ${
           isHomeActive
-            ? "bg-primary-blue text-white shadow-sm"
+            ? "bg-vibrant-blue text-white shadow-sm"
             : "text-slate-700 hover:bg-blue-50"
         }`}
       >
@@ -36,7 +36,7 @@ export default function LeftSidebar() {
         onClick={() => setActiveTab("profile")}
         className={`w-full flex items-center justify-start gap-3 px-4 py-3 rounded-xl font-semibold transition cursor-pointer ${
           isProfileActive
-            ? "bg-primary-blue text-white shadow-sm"
+            ? "bg-vibrant-blue text-white shadow-sm"
             : "text-slate-700 hover:bg-blue-50"
         }`}
       >

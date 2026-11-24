@@ -9,7 +9,7 @@ export default function Navbar() {
   const { activeTab, setActiveTab } = useContext(FormContext);
 
   return (
-    <header className="sticky top-0 z-20 bg-primary-blue px-4 sm:px-6 py-3 shadow-md">
+    <header className="sticky top-0 z-20 bg-vibrant-blue px-4 sm:px-6 py-3 shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
