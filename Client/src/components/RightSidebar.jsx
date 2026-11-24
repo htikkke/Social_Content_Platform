@@ -1,6 +1,13 @@
 import defaultProfile from "../assets/Defaultgirl.png";
 import rightsideImage from "../assets/explore.png";
 
+const TRENDING_TOPICS = [
+  { tag: "#Technology", posts: "125K posts" },
+  { tag: "#TravelMyanmar", posts: "98K posts" },
+  { tag: "#GoodVibes", posts: "72K posts" },
+  { tag: "#CodingLife", posts: "60K posts" },
+];
+
 export default function RightSidebar() {
   return (
     <aside className="hidden lg:flex lg:col-span-3 h-full flex-col gap-4">
@@ -39,17 +46,21 @@ export default function RightSidebar() {
 
       {/* Trending Topics */}
       <div className="bg-white/80 backdrop-blur rounded-2xl p-4 shadow-sm border border-blue-100 flex flex-col gap-3">
-        <h2 className="font-bold text-2xl text-slate-900">Trending Topics</h2>
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 transition cursor-pointer">
+        <h2 className="font-bold text-2xl text-slate-900">
+          🔥 Trending Topics
+        </h2>
+        {TRENDING_TOPICS.map((item) => (
+          <div
+            key={item.tag}
+            className="flex items-center justify-between hover:bg-slate-50 p-1.5 rounded-lg transition cursor-pointer"
+          >
             <div>
-              <p className="text-sm font-semibold text-primary-blue">
-                #Technology
-              </p>
-              <p className="text-xs text-slate-500">125K posts</p>
+              <p className="text-sm font-semibold text-[#2563eb]">{item.tag}</p>
+              <p className="text-xs text-slate-500">{item.posts}</p>
             </div>
+            <span className="text-slate-400 text-lg">›</span>
           </div>
-        </div>
+        ))}
       </div>
 
       {/* Promo Card */}
