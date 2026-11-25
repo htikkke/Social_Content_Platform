@@ -32,7 +32,7 @@ export default function Navbar() {
               alt="Home"
               className="w-5 h-5 brightness-0 invert"
             />
-            <span>Home</span>
+            <span className="max-md:hidden">Home</span>
           </button>
 
           <button
@@ -49,7 +49,7 @@ export default function Navbar() {
               alt="My Profile"
               className="w-5 h-5 brightness-0 invert"
             />
-            <span>My Profile</span>
+            <span className="max-md:hidden">My Profile</span>
           </button>
         </nav>
 
