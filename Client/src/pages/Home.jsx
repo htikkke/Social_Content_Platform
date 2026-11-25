@@ -8,9 +8,12 @@ export const FormContext = createContext(null);
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("home");
+  const [currentUser, setCurrentUser] = useState("");
 
   return (
-    <FormContext.Provider value={{ activeTab, setActiveTab }}>
+    <FormContext.Provider
+      value={{ activeTab, setActiveTab, currentUser, setCurrentUser }}
+    >
       <div
         id="homepage-main-container"
         className="min-h-screen lg:h-screen lg:overflow-hidden bg-[#eef3fb] flex flex-col"
