@@ -6,7 +6,7 @@ import profileIcon from "../assets/user-solid.svg";
 import logoutIcon from "../assets/logout.png";
 
 export default function Navbar() {
-  const { activeTab, setActiveTab } = useContext(FormContext);
+  const { activeTab, setActiveTab, currentUser } = useContext(FormContext);
 
   return (
     <header className="sticky top-0 z-20 bg-vibrant-blue px-4 sm:px-6 py-3 shadow-md">
@@ -55,7 +55,7 @@ export default function Navbar() {
 
         <div className="flex items-center gap-3">
           <img
-            src={defaultProfile}
+            src={currentUser?.photoUrl || defaultProfile}
             alt="User profile"
             className="w-9 h-9 rounded-full object-cover border-2 border-white/80 cursor-pointer hover:border-primary-blue"
           />
