@@ -1,4 +1,7 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import ApiRequest from "../services/api";
+// Components Import
 import Navbar from "../components/Navbar";
 import LeftSidebar from "../components/LeftSidebar";
 import PostFeed from "../components/PostFeed";
@@ -8,8 +11,29 @@ export const FormContext = createContext(null);
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("home");
-  const [currentUser, setCurrentUser] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    let isMounted = true;
+    async function fetchCurrentUser() {
+      try {
+        const res = await ApiRequest("/auth/me");
+        if (!isMounted) return;
+        setCurrentUser(res?.user ?? res);
+      } catch (err) {
+        if (!isMounted) return;
+        setCurrentUser(null);
+        if (err?.status === 401) {
+          navigate("/login", { replace: true });
+        }
+      }
+    }
+    fetchCurrentUser();
+    return () => {
+      isMounted = false;
+    };
+  }, [navigate]);
   return (
     <FormContext.Provider
       value={{ activeTab, setActiveTab, currentUser, setCurrentUser }}
