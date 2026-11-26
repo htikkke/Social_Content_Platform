@@ -12,6 +12,10 @@ const TRENDING_TOPICS = [
 ];
 
 export default function RightSidebar() {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { currentUser } = useContext(FormContext);
+
   return (
     <aside className="hidden lg:flex lg:col-span-3 h-full flex-col gap-4">
       {/* Suggested friends */}
