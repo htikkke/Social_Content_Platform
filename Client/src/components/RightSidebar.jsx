@@ -1,3 +1,6 @@
+import { useState, useEffect, useContext } from "react";
+import { FormContext } from "../pages/Home";
+import ApiRequest from "../services/api";
 import defaultProfile from "../assets/Defaultgirl.png";
 import rightsideImage from "../assets/explore.png";
 
