@@ -16,6 +16,7 @@ export default function RightSidebar() {
   const [loading, setLoading] = useState(true);
   const { currentUser } = useContext(FormContext);
 
+  // to fetch the users
   useEffect(() => {
     let isMounted = true;
     async function fetchUsers() {
@@ -41,6 +42,15 @@ export default function RightSidebar() {
     };
   }, []);
 
+  // fetch users
+  const suggestedUsers = users
+    .filter((users) => {
+      if (!currentUser) return true;
+      const currentId = currentUser.id ?? currentUser._id;
+      const userId = users.id ?? users._id;
+      return currentId !== userId;
+    })
+    .slice(0, 3);
   return (
     <aside className="hidden lg:flex lg:col-span-3 h-full flex-col gap-4">
       {/* Suggested friends */}
