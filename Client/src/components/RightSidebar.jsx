@@ -16,6 +16,31 @@ export default function RightSidebar() {
   const [loading, setLoading] = useState(true);
   const { currentUser } = useContext(FormContext);
 
+  useEffect(() => {
+    let isMounted = true;
+    async function fetchUsers() {
+      setLoading(true);
+      try {
+        const res = await ApiRequest("/users");
+        if (!isMounted) return;
+        const list = Array.isArray(res) ? res : (res?.users ?? []);
+        setUsers(list);
+      } catch (err) {
+        if (!isMounted) return;
+        console.error("Failed to fetch users:", err);
+        setUsers([]);
+      } finally {
+        if (!isMounted) {
+          setLoading(false);
+        }
+      }
+    }
+    fetchUsers();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <aside className="hidden lg:flex lg:col-span-3 h-full flex-col gap-4">
       {/* Suggested friends */}
