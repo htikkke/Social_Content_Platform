@@ -78,11 +78,11 @@ export default function RightSidebar() {
                 className="flex items-center justify-between gap-2"
               >
                 <div className="flex items-center gap-2 min-w-0">
-                  <div className="flex items-center justify-center">
+                  <div className="w-11 h-11 rounded-full overflow-hidden border-2 border-white/80 hover:border-primary-blue shrink-0 cursor-pointer">
                     <img
                       src={user.photoUrl || defaultProfile}
                       alt={displayName}
-                      className="w-11 h-11 rounded-full object-cover border-2 border-white/80 shrink-0 cursor-pointer hover:border-primary-blue"
+                      className="w-full h-full object-cover object-center transition-transform duration-200 hover:scale-110"
                     />
                   </div>
                   <div className="flex flex-col items-start gap-0.5 min-w-0">
