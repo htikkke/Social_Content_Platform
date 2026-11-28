@@ -23,15 +23,16 @@ export default function RightSidebar() {
       setLoading(true);
       try {
         const res = await ApiRequest("/users");
+        console.log("USERS API RESPONSE:", res);
         if (!isMounted) return;
-        const list = Array.isArray(res) ? res : (res?.users ?? []);
+        const list = res?.data ?? [];
         setUsers(list);
       } catch (err) {
         if (!isMounted) return;
         console.error("Failed to fetch users:", err);
         setUsers([]);
       } finally {
-        if (!isMounted) {
+        if (isMounted) {
           setLoading(false);
         }
       }
@@ -70,28 +71,26 @@ export default function RightSidebar() {
         ) : (
           suggestedUsers.map((user) => {
             const userKey = user.id ?? user._id ?? user.email ?? user.name;
-            const displayName = user.name ?? user.username ?? "User";
-            const mutualText =
-              typeof user.mutualFriends === "number"
-                ? `${user.mutualFriends} mutual friends`
-                : "mutual friends";
+            const displayName = user.username || "User";
             return (
               <div
                 key={userKey}
                 className="flex items-center justify-between gap-2"
               >
                 <div className="flex items-center gap-2 min-w-0">
-                  <img
-                    src={user.avatar || user.profilePicture || defaultProfile}
-                    alt={displayName}
-                    className="w-11 h-11 rounded-full object-cover border-2 border-white/80 shrink-0 cursor-pointer hover:border-primary-blue"
-                  />
+                  <div className="flex items-center justify-center">
+                    <img
+                      src={user.photoUrl || defaultProfile}
+                      alt={displayName}
+                      className="w-11 h-11 rounded-full object-cover border-2 border-white/80 shrink-0 cursor-pointer hover:border-primary-blue"
+                    />
+                  </div>
                   <div className="flex flex-col items-start gap-0.5 min-w-0">
                     <p className="text-sm font-semibold text-slate-800 truncate">
                       {displayName}
                     </p>
                     <p className="text-xs text-slate-500 truncate">
-                      {mutualText}
+                      Mutual friends
                     </p>
                   </div>
                 </div>
