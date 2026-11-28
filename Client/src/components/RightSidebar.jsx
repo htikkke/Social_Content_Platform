@@ -63,27 +63,48 @@ export default function RightSidebar() {
             See all
           </p>
         </div>
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <img
-              src={defaultProfile}
-              alt="Suggested friend"
-              className="w-11 h-11 rounded-full object-cover border-2 border-white/80 shrink-0 cursor-pointer hover:border-primary-blue"
-            />
-            <div className="flex flex-col items-start gap-0.5 min-w-0">
-              <p className="text-sm font-semibold text-slate-800 truncate">
-                Name
-              </p>
-              <p className="text-xs text-slate-500 truncate">mutual friends</p>
-            </div>
-          </div>
-          <button
-            type="button"
-            className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-vibrant-blue text-white hover:opacity-90 transition cursor-pointer"
-          >
-            View Profile
-          </button>
-        </div>
+        {loading ? (
+          <p className="text-xs test-slate-500">Loading suggestions...</p>
+        ) : suggestedUsers.length === 0 ? (
+          <p className="text-xs text-slate-500">No suggested friends yet.</p>
+        ) : (
+          suggestedUsers.map((user) => {
+            const userKey = user.id ?? user._id ?? user.email ?? user.name;
+            const displayName = user.name ?? user.username ?? "User";
+            const mutualText =
+              typeof user.mutualFriends === "number"
+                ? `${user.mutualFriends} mutual friends`
+                : "mutual friends";
+            return (
+              <div
+                key={userKey}
+                className="flex items-center justify-between gap-2"
+              >
+                <div className="flex items-center gap-2 min-w-0">
+                  <img
+                    src={user.avatar || user.profilePicture || defaultProfile}
+                    alt={displayName}
+                    className="w-11 h-11 rounded-full object-cover border-2 border-white/80 shrink-0 cursor-pointer hover:border-primary-blue"
+                  />
+                  <div className="flex flex-col items-start gap-0.5 min-w-0">
+                    <p className="text-sm font-semibold text-slate-800 truncate">
+                      {displayName}
+                    </p>
+                    <p className="text-xs text-slate-500 truncate">
+                      {mutualText}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-vibrant-blue text-white hover:opacity-90 transition cursor-pointer"
+                >
+                  View Profile
+                </button>
+              </div>
+            );
+          })
+        )}
       </div>
 
       {/* Trending Topics */}
