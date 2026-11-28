@@ -14,6 +14,7 @@ const TRENDING_TOPICS = [
 export default function RightSidebar() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showAllUsers, setShowAllUsers] = useState(false);
   const { currentUser } = useContext(FormContext);
 
   // to fetch the users
@@ -53,7 +54,7 @@ export default function RightSidebar() {
     })
     .slice(0, 3);
   return (
-    <aside className="hidden lg:flex lg:col-span-3 h-full flex-col gap-4">
+    <aside className="hidden lg:flex lg:col-span-3 h-full flex-col gap-4 lg:overflow-y-auto">
       {/* Suggested friends */}
       <div className="bg-white/80 backdrop-blur rounded-2xl p-4 shadow-sm border border-blue-100 flex flex-col gap-4">
         <div className="flex items-center justify-between">
