@@ -19,6 +19,8 @@ export default function Home() {
     async function fetchCurrentUser() {
       try {
         const res = await ApiRequest("/auth/me");
+        console.log("AUTH ME RESPONSE:", res);
+        console.log("CURRENT USER:", res?.user);
         if (!isMounted) return;
         setCurrentUser(res?.user ?? res);
       } catch (err) {

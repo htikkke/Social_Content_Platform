@@ -17,7 +17,6 @@ export default function RightSidebar() {
   const [showAllUsers, setShowAllUsers] = useState(false);
   const { currentUser } = useContext(FormContext);
 
-  // to fetch the users
   useEffect(() => {
     let isMounted = true;
     async function fetchUsers() {
@@ -44,15 +43,15 @@ export default function RightSidebar() {
     };
   }, []);
 
-  // fetch users
-  const suggestedUsers = users
-    .filter((users) => {
-      if (!currentUser) return true;
-      const currentId = currentUser.id ?? currentUser._id;
-      const userId = users.id ?? users._id;
-      return currentId !== userId;
-    })
-    .slice(0, 3);
+  const filterUsers = users.filter((user) => {
+    if (!currentUser) return true;
+    const currentId = currentUser.id ?? currentUser._id;
+    const userId = user.id ?? user._id;
+    return currentId !== userId;
+  });
+
+  const suggestedUsers = showAllUsers ? filterUsers : filterUsers.slice(0, 3);
+
   return (
     <aside className="hidden lg:flex lg:col-span-3 h-full flex-col gap-4 lg:overflow-y-auto">
       {/* Suggested friends */}
@@ -61,17 +60,22 @@ export default function RightSidebar() {
           <h2 className="font-bold text-2xl text-slate-900">
             Suggested Friends
           </h2>
-          <p className="text-xs font-medium text-vibrant-blue cursor-pointer hover:underline">
-            See all
-          </p>
+          <button
+            type="button"
+            onClick={() => setShowAllUsers((prev) => !prev)}
+            className="text-sm font-medium text-vibrant-blue cursor-pointer hover:underline"
+          >
+            {showAllUsers ? "show less" : "see all"}
+          </button>
         </div>
+
         {loading ? (
-          <p className="text-xs test-slate-500">Loading suggestions...</p>
+          <p className="text-xs text-slate-500">Loading suggestions...</p>
         ) : suggestedUsers.length === 0 ? (
           <p className="text-xs text-slate-500">No suggested friends yet.</p>
         ) : (
           suggestedUsers.map((user) => {
-            const userKey = user.id ?? user._id ?? user.email ?? user.name;
+            const userKey = user.id ?? user._id ?? user.email ?? user.username;
             const displayName = user.username || "User";
             return (
               <div
